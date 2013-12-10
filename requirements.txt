@@ -1,0 +1,2 @@
+redis
+flake8
