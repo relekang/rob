@@ -2,6 +2,8 @@ import unittest
 import redis
 
 from robjects.base import BaseObject
+from robjects.objects import JsonObject, HashObject
+
 r = redis.Redis()
 r.flushdb()
 
@@ -63,6 +65,24 @@ class ObjectTestMixin(object):
     def test_delete(self):
         self.item.delete()
         self.assertEquals(self.CLS.count(), 0)
+
+
+class TestJsonObject(JsonObject):
+    redis = r
+    HASH_KEY = 'testjson'
+
+
+class JsonObjectTest(ObjectTestCase, ObjectTestMixin):
+    CLS = TestJsonObject
+
+
+class TestHashObject(HashObject):
+    redis = r
+    HASH_KEY = 'testhash%s'
+
+
+class HashObjectTest(ObjectTestCase, ObjectTestMixin):
+    CLS = TestHashObject
 
 
 if __name__ == '__main__':
