@@ -3,5 +3,5 @@ setup:
 	venv/bin/pip install -r requirements.txt
 
 test:
-	PYTHONPATH=$(shell pwd) venv/bin/python robjects/tests.py
+	PYTHONPATH=$(shell pwd) venv/bin/python rob/tests.py
 	flake8

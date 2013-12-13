@@ -9,7 +9,7 @@ install:
 
 script:
   - flake8
-  - PYTHONPATH=$PWD python robjects/tests.py 
+  - PYTHONPATH=$PWD python rob/tests.py 
 
 services:
   - redis-server

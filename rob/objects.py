@@ -1,6 +1,6 @@
 import json
 
-from robjects.base import BaseObject
+from rob.base import BaseObject
 
 
 class JsonObject(BaseObject):

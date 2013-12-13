@@ -1,8 +1,8 @@
 import unittest
 import redis
 
-from robjects.base import BaseObject
-from robjects.objects import JsonObject, HashObject
+from rob.base import BaseObject
+from rob.objects import JsonObject, HashObject
 
 r = redis.Redis()
 r.flushdb()
