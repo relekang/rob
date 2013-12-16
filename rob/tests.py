@@ -23,6 +23,9 @@ class BaseObjectTest(unittest.TestCase):
 
 
 class ObjectTestCase(unittest.TestCase):
+    """
+    A setup and tear down base for persistent objects.
+    """
 
     BASE_DATA = {
         'key': 'a-key',
@@ -38,6 +41,9 @@ class ObjectTestCase(unittest.TestCase):
 
 
 class ObjectTestMixin(object):
+    """
+    A mixin with tests that all types of persistent object should pass.
+    """
 
     def assertObjectInStore(self, key, data_dict):
         item = self.CLS.get(key)
