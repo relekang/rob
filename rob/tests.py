@@ -3,8 +3,9 @@ import redis
 
 from rob.base import BaseObject
 from rob.objects import JsonObject, HashObject
+from rob.mixins import AutosaveMixin
 
-r = redis.Redis()
+r = redis.Redis(db='10')
 r.flushdb()
 
 
@@ -89,6 +90,19 @@ class TestHashObject(HashObject):
 
 class HashObjectTest(ObjectTestCase, ObjectTestMixin):
     CLS = TestHashObject
+
+
+class TestAutosaveObject(TestJsonObject, AutosaveMixin):
+    pass
+
+
+class AutosaveTest(ObjectTestCase, ObjectTestMixin):
+    CLS = TestAutosaveObject
+
+    def test_autosave(self):
+        new_title = 'autosaved object'
+        self.item.title = new_title
+        self.assertEqual(TestAutosaveObject.get('a-key').title, new_title)
 
 
 if __name__ == '__main__':
