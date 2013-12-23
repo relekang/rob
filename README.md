@@ -18,3 +18,10 @@ It uses a list to keep track of saved objects.
 
 Needs to define `HASH_KEY` - a key that is used as prefix to the list and
 as the key to the hash.
+
+### Mixins
+The mixins below will work with all the object types.
+
+#### Autosave mixin
+A mixin that calls save every time an attribute is set.
+
