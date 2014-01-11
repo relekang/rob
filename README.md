@@ -25,3 +25,24 @@ The mixins below will work with all the object types.
 #### Autosave mixin
 A mixin that calls save every time an attribute is set.
 
+## Examples
+
+#### Simple object
+```python
+from redis import Redis
+
+
+class ExampleObject(JsonObject):
+    HASH_KEY = 'exampleobject'
+    redis = Redis()
+```
+
+#### Autosave object
+```python
+from redis import Redis
+
+
+class ExampleAutosaveObject(JsonObject, AutosaveMixin):
+    HASH_KEY = 'exampleobject'
+    redis = Redis()
+```
