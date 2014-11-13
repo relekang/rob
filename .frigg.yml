@@ -1,0 +1,5 @@
+tasks:
+ - tox -e py27
+ - tox -e py33
+ - tox -e py34
+ - flake8
