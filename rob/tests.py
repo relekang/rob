@@ -1,11 +1,12 @@
 import unittest
+
 import redis
 
 from rob.base import BaseObject
-from rob.objects import JsonObject, HashObject
 from rob.mixins import AutosaveMixin
+from rob.objects import HashObject, JsonObject
 
-r = redis.Redis(db='10')
+r = redis.Redis(db='10', decode_responses=True)
 r.flushdb()
 
 
@@ -48,15 +49,15 @@ class ObjectTestMixin(object):
 
     def assertObjectInStore(self, key, data_dict):
         item = self.CLS.get(key)
-        self.assertEquals(len(item.__dict__.keys()), len(data_dict.keys()))
+        self.assertEqual(len(item.__dict__.keys()), len(data_dict.keys()))
         for key in data_dict:
             self.assertEqual(getattr(item, key), data_dict[key])
 
     def test_save(self):
         self.item.title = 'Wat'
         self.item.save()
-        self.assertEquals(self.CLS.get(self.item.key).title, 'Wat')
-        self.assertEquals(self.CLS.count(), 1)
+        self.assertEqual(self.CLS.get(self.item.key).title, 'Wat')
+        self.assertEqual(self.CLS.count(), 1)
 
     def test_create(self):
         data = {
@@ -65,13 +66,13 @@ class ObjectTestMixin(object):
             'height': '20'
         }
         self.item2 = self.CLS.create(**data)
-        self.assertEquals(self.CLS.count(), 2)
+        self.assertEqual(self.CLS.count(), 2)
         self.assertObjectInStore('thing', data)
         self.item2.delete()
 
     def test_delete(self):
         self.item.delete()
-        self.assertEquals(self.CLS.count(), 0)
+        self.assertEqual(self.CLS.count(), 0)
 
 
 class TestJsonObject(JsonObject):

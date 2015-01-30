@@ -15,11 +15,16 @@ class JsonObject(BaseObject):
         return self.redis.hset(
             self.HASH_KEY,
             self.key,
-            json.dumps(self.__dict__)
+            json.dumps(self, default=self.serializer)
         )
 
     def delete(self):
         return self.redis.hdel(self.HASH_KEY, self.key)
+
+    def serializer(self, obj):
+        if isinstance(obj, BaseObject):
+            return obj.__dict__
+        return obj
 
     @classmethod
     def all(cls):
@@ -45,7 +50,7 @@ class HashObject(BaseObject):
     """
 
     def save(self):
-        if not self.key in self.redis.lrange(self.list_key(), 0, -1):
+        if self.key not in self.redis.lrange(self.list_key(), 0, -1):
             self.redis.lpush(self.list_key(), self.key)
         return self.redis.hmset(self.HASH_KEY % self.key, self.__dict__)
 
