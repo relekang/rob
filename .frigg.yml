@@ -3,3 +3,4 @@ tasks:
  - tox -e py33
  - tox -e py34
  - flake8
+ - isort -c -rc rob
